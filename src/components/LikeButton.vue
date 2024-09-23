@@ -3,6 +3,12 @@
         <button @click="toggleLike">
             {{ isLiked ? '取消点赞' : '点赞' }} ({{ likes }})
         </button>
+        <button @click="toggleFavorite">
+            {{ isFavorited ? '取消收藏' : '收藏' }} ({{ favorites }})
+        </button>
+        <button @click="toggleShare">
+            {{ isShared ? ' 取消分享' : '分享' }}({{ shares }})
+        </button>
     </div>
 </template>
 
@@ -12,7 +18,7 @@ import { useLikeStore } from '@/store/like.js';
 import { storeToRefs } from 'pinia';
 
 const likeStore = useLikeStore();
-const { likes, isLiked } = storeToRefs(likeStore);
+const { likes, isLiked, favorites, isFavorited, shares, isShared } = storeToRefs(likeStore);
 
 const rid = 123; // 动漫ID
 
@@ -20,8 +26,18 @@ const toggleLike = () => {
     likeStore.toggleLike(rid);
 };
 
+const toggleFavorite = () => {
+    likeStore.toggleFavorite(rid);
+};
+
+const toggleShare = () => {
+    likeStore.toggleShare(rid);
+};
+
 onMounted(() => {
     likeStore.fetchLikes(rid);
+    likeStore.fetchFavorites(rid);
+    likeStore.fetchShares(rid);
 });
 </script>
 
@@ -33,5 +49,6 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-right: 10px;
 }
 </style>

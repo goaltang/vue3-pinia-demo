@@ -43,6 +43,50 @@ Mock.mock(/\/likes\/\d+/, "delete", (options) => {
   };
 });
 
+// Mock 获取收藏数和是否已收藏
+Mock.mock(/\/favorites\/\d+/, "get", () => {
+  return {
+      favorites: 50,
+      isFavorited: false,
+  };
+});
+
+// Mock 收藏接口
+Mock.mock("/favorites", "post", () => {
+  return {
+      message: "收藏成功！",
+  };
+});
+
+// Mock 取消收藏接口
+Mock.mock(/\/favorites\/\d+/, "delete", () => {
+  return {
+      message: "取消收藏成功！",
+  };
+});
+
+// Mock 获取收藏数和是否已收藏
+Mock.mock(/\/shares\/\d+/, "get", () => {
+  return {
+      shares: 20,
+      isShared: false,
+  };
+});
+
+// Mock 分享接口
+Mock.mock("/shares", "post", () => {
+  return {
+      message: "分享成功！",
+  };
+});
+
+// Mock 取消分享接口
+Mock.mock(/\/shares\/\d+/, "delete", () => {
+  return {
+      message: "取消分享成功！",
+  };
+});
+
 // 模拟分页数据接口
 Mock.mock(/\/data\?page=\d+/, 'get', (options) => {
   const page = parseInt(options.url.match(/page=(\d+)/)[1]);
